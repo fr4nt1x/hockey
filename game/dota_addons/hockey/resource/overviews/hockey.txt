@@ -1,9 +1,8 @@
 hockey
 {
-	material overviews/hockey
-	pos_x -3583
-	pos_y 3072	scale 6.950
-	rotate 0
-	zoom 1.3000
+	material materials/overviews/hockey.vmat
+	pos_x -4096
+	pos_y 4096
+	scale 8.000
 }
 

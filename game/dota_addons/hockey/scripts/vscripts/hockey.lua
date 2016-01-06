@@ -71,6 +71,7 @@ end
 ]]
 function Hockey:OnAllPlayersLoaded()
   DebugPrint("[HOCKEY] All Players have loaded into the game")
+  --Physics:GenerateAngleGrid()
 end
 
 --[[
@@ -85,11 +86,16 @@ function Hockey:OnHeroInGame(hero)
 
   -- This line for example will set the starting gold of every hero to 500 unreliable gold
   hero:SetGold(500, false)
+  local ability = "tusk_shoot"
+  if ability ~=nil then
+      hero:UpgradeAbility(hero:FindAbilityByName(ability))
+      hero:UpgradeAbility(hero:FindAbilityByName("blink"))
+      hero:SetAbilityPoints(0)
+  end
 
   -- These lines will create an item and add it to the player, effectively ensuring they start with the item
-  local item = CreateItem("item_example_item", hero, hero)
-  hero:AddItem(item)
-
+  --local item = CreateItem("item_example_item", hero, hero)
+  --hero:AddItem(item)
   --[[ --These lines if uncommented will replace the W ability of any hero that loads into the game
     --with the "example_ability" ability
 
@@ -105,14 +111,29 @@ end
 ]]
 function Hockey:OnGameInProgress()
   DebugPrint("[HOCKEY] The game has officially begun")
+  Hockey.Standing = {0,0}
+  local point = Entities:FindByName(nil, "start_puk"):GetAbsOrigin()
+  Hockey.puk = CreateUnitByName("npc_dummy_unit", point, true, nil, nil, DOTA_TEAM_NEUTRALS )
 
-  Timers:CreateTimer(30, -- Start this timer 30 game-time seconds later
-    function()
-      DebugPrint("This function is called 30 seconds after the game begins, and every 30 seconds thereafter")
-      return 30.0 -- Rerun this timer every 30 game-time seconds 
-    end)
+  local unit = Hockey.puk
+  unit.speed = 1500 
+
+  Physics:Unit(unit)
+  -- General properties
+  unit:PreventDI(true)
+  unit:SetAutoUnstuck(false)
+  unit:SetNavGridLookahead(2) 
+  unit:SetNavCollisionType(PHYSICS_NAV_BOUNCE)
+  unit:FollowNavMesh(true)
+  unit:SetPhysicsVelocityMax(1.5*unit.speed)
+
+  unit:SetPhysicsVelocity(unit.speed*0.6*RandomVector(1))
+  unit:SetPhysicsFriction(0.01)
+
+  unit:Hibernate(false)
+  unit:SetGroundBehavior(PHYSICS_GROUND_LOCK)
+
 end
-
 
 
 -- This function initializes the game mode and is called before anyone loads into the game

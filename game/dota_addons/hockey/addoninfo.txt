@@ -1,12 +1,13 @@
 "AddonInfo"
 {
-  "TeamCount" "10"
-  "maps"      "template_map"
+  "TeamCount" "2"
+  "maps"      "hockey"
   "IsPlayable"  "1"
-  "template_map"
+  "hockey"
   {
-          "MaxPlayers"                    "10"
+          "MaxPlayers"                    "4"
   }
+
 //  "desert_duo"
 //  {
 //          "MaxPlayers"                    "10"

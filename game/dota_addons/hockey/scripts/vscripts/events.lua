@@ -1,6 +1,6 @@
 -- This file contains all hockey-registered events and has already set up the passed-in parameters for your use.
 -- Do not remove the Hockey:_Function calls in these events as it will mess with the internal hockey systems.
-
+require('goal')
 -- Cleanup a player when they leave
 function Hockey:OnDisconnect(keys)
   DebugPrint('[HOCKEY] Player Disconnected ' .. tostring(keys.userid))
@@ -338,6 +338,22 @@ function Hockey:OnPlayerChat(keys)
   local teamonly = keys.teamonly
   local userID = keys.userid
   local playerID = self.vUserIds[userID]:GetPlayerID()
-
-  local text = keys.text
+  local player = PlayerResource:GetPlayer(playerID)
+  if IsValidEntity(player) and GameRules:PlayerHasCustomGameHostPrivileges(player) then 
+    local text = keys.text
+    local i,j = string.find(text,"speed_%d+")
+    local speed = nil
+    if i ~= nil then
+      speed = string.sub(text,i,j)
+    end
+    if text == speed then 
+      local i,j = string.find(speed,"%d+")
+      speed = tonumber(string.sub(speed,i,j))
+      Hockey.puk.speed = speed
+    end
+    text = keys.text
+    if text == "reset_puk" then 
+      reset_puk()
+    end 
+  end
 end
