@@ -6,7 +6,6 @@
     "Model"           "models/heroes/rattletrap/rattletrap_cog.vmdl"  // Model.
     "SoundSet"          ""          // Name of sound set.
     "Level"           "0"
-    "UnitLabel"         "healing_ward"
     
     // Abilities
     //----------------------------------------------------------------
@@ -56,7 +55,7 @@
 
     // Bounds
     //----------------------------------------------------------------
-    "BoundsHullName"      "DOTA_HULL_SIZE_SMALL"      // Hull type used for navigation/locomotion.
+    "BoundsHullName"      "DOTA_HULL_SIZE_REGULAR"      // Hull type used for navigation/locomotion.
 
     // Movement
     //----------------------------------------------------------------

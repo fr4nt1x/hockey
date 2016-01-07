@@ -22,11 +22,12 @@ require('libraries/notifications')
 require('libraries/animations')
 -- This library can be used for performing "Frankenstein" attachments on units
 require('libraries/attachments')
-
+require('libraries/puk')
 
 -- These internal libraries set up hockey's events and processes.  Feel free to inspect them/change them if you need to.
 require('internal/hockey')
 require('internal/events')
+
 
 -- settings.lua is where you can specify many different properties for your game mode and is one of the core hockey files.
 require('settings')
@@ -72,6 +73,15 @@ end
 function Hockey:OnAllPlayersLoaded()
   DebugPrint("[HOCKEY] All Players have loaded into the game")
   --Physics:GenerateAngleGrid()
+  Entities:FindByName(nil, "top_right"):GetAbsOrigin()
+  --holds the 4 map corners as vectors numbered counterclockwise first is topright, 
+  Hockey.corners = {Entities:FindByName(nil, "top_right"):GetAbsOrigin(),
+                    Entities:FindByName(nil, "top_left"):GetAbsOrigin(),
+                    Entities:FindByName(nil, "bot_left"):GetAbsOrigin(),
+                    Entities:FindByName(nil, "bot_right"):GetAbsOrigin()}
+
+ Hockey.goals =     {Entities:FindByName(nil, "goal_right"):GetAbsOrigin(),
+                      Entities:FindByName(nil, "goal_left"):GetAbsOrigin()}
 end
 
 --[[
@@ -92,7 +102,7 @@ function Hockey:OnHeroInGame(hero)
       hero:UpgradeAbility(hero:FindAbilityByName("blink"))
       hero:SetAbilityPoints(0)
   end
-
+  print(Vector(10,10,10)-10)
   -- These lines will create an item and add it to the player, effectively ensuring they start with the item
   --local item = CreateItem("item_example_item", hero, hero)
   --hero:AddItem(item)
@@ -113,25 +123,26 @@ function Hockey:OnGameInProgress()
   DebugPrint("[HOCKEY] The game has officially begun")
   Hockey.Standing = {0,0}
   local point = Entities:FindByName(nil, "start_puk"):GetAbsOrigin()
-  Hockey.puk = CreateUnitByName("npc_dummy_unit", point, true, nil, nil, DOTA_TEAM_NEUTRALS )
 
+  Hockey.puk = CreateUnitByName("npc_dummy_unit", point, true, nil, nil, DOTA_TEAM_NEUTRALS )
+  Timers:CreateTimer(0.1,check_collision)
   local unit = Hockey.puk
   unit.speed = 1500 
-
+  unit.last_coll = 1
   Physics:Unit(unit)
   -- General properties
-  unit:PreventDI(true)
-  unit:SetAutoUnstuck(false)
-  unit:SetNavGridLookahead(2) 
-  unit:SetNavCollisionType(PHYSICS_NAV_BOUNCE)
-  unit:FollowNavMesh(true)
+  --unit:PreventDI(true)
+  --unit:SetAutoUnstuck(false)
+  --unit:SetNavGridLookahead(2) 
+  unit:SetNavCollisionType(PHYSICS_NAV_NOTHING)
+  unit:FollowNavMesh(false)
   unit:SetPhysicsVelocityMax(1.5*unit.speed)
 
   unit:SetPhysicsVelocity(unit.speed*0.6*RandomVector(1))
   unit:SetPhysicsFriction(0.01)
 
   unit:Hibernate(false)
-  unit:SetGroundBehavior(PHYSICS_GROUND_LOCK)
+  unit:SetGroundBehavior(PHYSICS_GROUND_NOTHING)
 
 end
 
