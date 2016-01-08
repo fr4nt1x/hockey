@@ -6,4 +6,7 @@
 "CustomHeroList"
 {
   "npc_dota_hero_tusk" "-1"
+  "npc_dota_hero_antimage" "-1"
+  "npc_dota_hero_pudge" "-1"
+
 }

@@ -1,0 +1,72 @@
+"antimage_shoot"
+  {
+    // General
+    //-------------------------------------------------------------------------------------
+    "BaseClass" "ability_datadriven"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "MaxLevel"              "6"
+    "RequiredLevel"        "-1"
+    "LevelsBetweenUpgrades"     "1"
+    "AOERadius"           "%radius"
+
+    // Stats
+    //-------------------------------------------------------------------------------------
+    //"AbilityCastPoint" "0.2"
+    "AbilityCooldown"  "1.1 1 0.8 0.6 0.4 0.3"
+    "AbilityManaCost"  "1"
+    "AbilityTextureName" "antimage_mana_void"
+
+
+    // Special
+    //-------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+        "01"
+        {
+          "var_type" "FIELD_INTEGER"
+          "radius" "300 320 340 360 380 400"
+        }
+        "02"
+        {
+          "var_type" "FIELD_FLOAT"
+          "max_range_reduction" "800 750 700 650 600 550"
+        }
+        "03"
+        {
+          "var_type" "FIELD_FLOAT"
+          "duration" "0.1"
+        }
+    }
+
+    "precache"
+    {
+    }
+
+    // Data Driven
+    //-------------------------------------------------------------------------------------
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "heroes/shoot.lua"
+        "Function"    "shoot"
+      }
+      "ApplyModifier"
+      {
+          "ModifierName"    "modifier_animation"
+          "Target"         "CASTER"
+          "Duration"        "0.5"
+      }
+    }
+
+    "Modifiers"
+    {
+        "modifier_animation"
+        {
+            "Passive"            "0"
+            "IsHidden"            "1"
+            "OverrideAnimation"     "ACT_DOTA_ATTACK"
+        
+        }
+    }    
+  }

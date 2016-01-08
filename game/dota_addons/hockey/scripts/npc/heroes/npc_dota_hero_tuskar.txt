@@ -5,7 +5,7 @@
     "SoundSet"          "0" 
 
     "Ability1"        "tusk_shoot" 
-    "Ability2"        "blink" 
+    "Ability2"        "tusk_shoot_kick" 
     "Ability3"        "" 
     "Ability4"        ""
     "Ability5"        ""
@@ -45,7 +45,7 @@
 
     "MovementCapabilities"    "DOTA_UNIT_CAP_MOVE_GROUND"
     "MovementSpeed"       "360"                 // Speed.
-    "MovementTurnRate"      "0.5"                 // Turning rate.
+    "MovementTurnRate"      "0.7"                 // Turning rate.
 
     "StatusHealth"        "1000"                 // Base health.
     "StatusHealthRegen"     "0.0"                 // Health regeneration rate.

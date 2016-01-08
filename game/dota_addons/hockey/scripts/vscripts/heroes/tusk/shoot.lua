@@ -25,9 +25,9 @@ function shoot(event )
 			local acc = direction*(puk.speed-(distance*max_range_reduction))*(1/duration)
 			puk:AddPhysicsAcceleration(acc)
 
-			Timers:CreateTimer(duration,function()
+			table.insert(puk.accelerateTimers,Timers:CreateTimer(duration,function()
   				puk:AddPhysicsAcceleration( -acc)      		
-  			end)
+  			end),1) 
 		end
 	end
 end

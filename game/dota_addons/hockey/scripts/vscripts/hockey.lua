@@ -96,13 +96,13 @@ function Hockey:OnHeroInGame(hero)
 
   -- This line for example will set the starting gold of every hero to 500 unreliable gold
   hero:SetGold(500, false)
-  local ability = "tusk_shoot"
-  if ability ~=nil then
-      hero:UpgradeAbility(hero:FindAbilityByName(ability))
-      hero:UpgradeAbility(hero:FindAbilityByName("blink"))
-      hero:SetAbilityPoints(0)
+  for i = 0,15 do 
+    local ability = hero:GetAbilityByIndex(i)
+    if IsValidEntity(ability) then
+      hero:UpgradeAbility(ability)
+    end
   end
-  print(Vector(10,10,10)-10)
+  hero:SetAbilityPoints(0)
   -- These lines will create an item and add it to the player, effectively ensuring they start with the item
   --local item = CreateItem("item_example_item", hero, hero)
   --hero:AddItem(item)
@@ -125,6 +125,7 @@ function Hockey:OnGameInProgress()
   local point = Entities:FindByName(nil, "start_puk"):GetAbsOrigin()
 
   Hockey.puk = CreateUnitByName("npc_dummy_unit", point, true, nil, nil, DOTA_TEAM_NEUTRALS )
+  Hockey.puk.accelerateTimers = {}
   Timers:CreateTimer(0.1,check_collision)
   local unit = Hockey.puk
   unit.speed = 1500 

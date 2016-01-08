@@ -1,0 +1,54 @@
+"pudge_rot_keeper"
+  {
+    // General
+    //-------------------------------------------------------------------------------------
+    "BaseClass" "ability_datadriven"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+    "MaxLevel"              "6"
+    "RequiredLevel"        "-1"
+    "LevelsBetweenUpgrades"     "1"
+    "AOERadius"           "%radius"
+
+    // Stats
+    //-------------------------------------------------------------------------------------
+    "AbilityCastPoint" "0.35"
+    "AbilityCooldown"  "8 7 6 5 4"
+    "AbilityManaCost"  "1"
+    "AbilityTextureName" "pudge_rot"
+    "AbilityCastAnimation"  "ACT_DOTA_CHANNEL_ABILITY_1"
+    // Special
+    //-------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+        "01"
+        {
+          "var_type" "FIELD_INTEGER"
+          "radius" "360 380 400 420 440 460"
+        }
+        "02"
+        {
+          "var_type" "FIELD_FLOAT"
+          "max_kept_velocity" "600 550 500 450 400 350"
+        }
+    }
+
+    "precache"
+    {
+    }
+
+    // Data Driven
+    //-------------------------------------------------------------------------------------
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "heroes/pudge/keeper.lua"
+        "Function"    "rot"
+      }
+
+    }
+
+    "Modifiers"
+    {
+    }    
+  }
