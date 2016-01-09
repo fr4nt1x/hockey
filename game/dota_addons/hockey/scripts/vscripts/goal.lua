@@ -24,7 +24,7 @@ function goal_first_player( event )
    			hero:HeroLevelUp(true)
    		end
    	end 
-	if Hockey.Standing[1] >= 2 then 
+	if Hockey.Standing[1] >= 10 then 
 		reset_game()
 	else
 		Timers:CreateTimer(0.5,function() reset_puk() end)
@@ -54,7 +54,7 @@ function goal_second_player( event )
    			hero:HeroLevelUp(true)
    		end
    	end 
-	if Hockey.Standing[2] >= 2 then 
+	if Hockey.Standing[2] >= 10 then 
 		reset_game()
 	else
 		Timers:CreateTimer(0.5,function() reset_puk() end)

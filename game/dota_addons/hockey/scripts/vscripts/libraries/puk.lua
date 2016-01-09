@@ -41,11 +41,12 @@ end
 function inGoalArea(pukOrg,pukRad)
 	local goalLeft = Hockey.goals[2]
 	local goalRight = Hockey.goals[1]
+	local widthOfGoalBorder = pukRad
  	if pukOrg.x +pukRad < goalRight.x and pukOrg.x - pukRad >goalLeft.x then
  		return true 
- 	elseif collision_left(pukOrg,goalLeft,pukRad) and (pukOrg.y > goalLeft.y or pukOrg.y < Hockey.corners[3].y) then
+ 	elseif collision_left(pukOrg,goalLeft,pukRad) and pukOrg.x + pukRad > goalLeft-widthOfGoalBorder and (pukOrg.y > goalLeft.y or pukOrg.y < Hockey.corners[3].y) then
  		return true
- 	elseif collision_right(pukOrg,goalRight,pukRad) and (pukOrg.y > goalLeft.y or pukOrg.y < Hockey.corners[3].y) then
+ 	elseif collision_right(pukOrg,goalRight,pukRad) and pukOrg.x - pukRad > goalRight + widthOfGoalBorder and (pukOrg.y > goalLeft.y or pukOrg.y < Hockey.corners[3].y) then
   		return true
   	else 
  		return false 
@@ -56,7 +57,7 @@ end
 function check_collision()
 	-- body
 	local puk = Hockey.puk
-	local pukRad = puk:GetHullRadius()+32
+	local pukRad = puk:GetHullRadius()+4
 	if collision_left(puk:GetAbsOrigin(),Hockey.corners[2],pukRad) then
 		local vek = puk:GetPhysicsVelocity()
 		puk:SetPhysicsVelocity((reflectY(vek)))

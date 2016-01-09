@@ -25,7 +25,7 @@ function shoot(event )
 				Timers:RemoveTimer(v)
 			end
 			puk.accelerateTimers = {}
-			puk:SetPhysicsVelocity(direction * (puk.speed-max_range_reduction*distance))
+			puk:SetPhysicsVelocity(direction * (1.5*puk.speed-max_range_reduction*distance))
 		end
 	end
 end
