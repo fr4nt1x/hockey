@@ -128,6 +128,7 @@ function Hockey:OnGameInProgress()
   Hockey.puk.accelerateTimers = {}
   Timers:CreateTimer(0.1,check_collision)
   local unit = Hockey.puk
+  unit:AddNewModifier(nil, nil, "modifier_phased",{})
   unit.speed = 1500 
   unit.last_coll = 1
   Physics:Unit(unit)

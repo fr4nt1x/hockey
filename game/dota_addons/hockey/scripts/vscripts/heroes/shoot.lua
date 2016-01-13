@@ -8,7 +8,6 @@ function shoot(event )
 	local duration = ability:GetLevelSpecialValueFor("duration",ability:GetLevel()-1)
 	local max_range_reduction = ability:GetLevelSpecialValueFor("max_range_reduction",ability:GetLevel()-1)
 	local minAccDistanceFactor = 0.25
-
 	for _,puk in pairs(puks) do 
 		if IsValidEntity(puk) then 
 			puk.lasthit = caster
@@ -22,7 +21,7 @@ function shoot(event )
 			--shift about minimum to the left and scale with max to get a number in [0,1]	
 			distance = (distance-(radius*minAccDistanceFactor))/(radius-(radius*minAccDistanceFactor))
 			direction = direction:Normalized()
-			local acc = direction*(puk.speed-(distance*max_range_reduction))*(1/duration)
+			local acc = direction*(puk.speed)*(1/duration)
 			puk:AddPhysicsAcceleration(acc)
 
 			Timers:CreateTimer(duration,function()
