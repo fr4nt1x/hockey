@@ -21,6 +21,7 @@ function shoot(event )
 			--shift about minimum to the left and scale with max to get a number in [0,1]	
 			distance = (distance-(radius*minAccDistanceFactor))/(radius-(radius*minAccDistanceFactor))
 			direction = direction:Normalized()
+			direction = Vector(direction.x,direction.y,0)
 			local acc = direction*(puk.speed)*(1/duration)
 			puk:AddPhysicsAcceleration(acc)
 

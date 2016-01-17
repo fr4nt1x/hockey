@@ -78,13 +78,13 @@
 	    //-------------------------------------------------------------------------------------
 	    "BaseClass" "ability_datadriven"
 	    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-	    "MaxLevel"              "5"
+	    "MaxLevel"              "6"
 	    "RequiredLevel"        "-1"
 	    "LevelsBetweenUpgrades"     "1"
 	
 	    // Stats
 	    //-------------------------------------------------------------------------------------
-	    "AbilityCooldown"  "6 5 4 3 2"
+	    "AbilityCooldown"  "7 6 5 4 3 2"
 	    "AbilityManaCost"  "1"
 	    "AbilityTextureName" "antimage_blink"
 	    "AbilityCastRange"                "%radius"
@@ -97,7 +97,7 @@
 	        "01"
 	        {
 	          "var_type" "FIELD_INTEGER"
-	          "radius" "300 350 400 450 500"
+	          "radius" "300 350 400 450 500 550"
 	        }
 	    }
 	
@@ -446,6 +446,135 @@
 	    "BaseClass"           "ability_datadriven"
 	    "AbilityTextureName"            "rubick_empty1"
 	  }
+	"mirana_arrow_hockey"
+	  {
+	    // General
+	    //-------------------------------------------------------------------------------------
+	    "BaseClass" "ability_datadriven"
+	    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+	    "MaxLevel"              "6"
+	    "RequiredLevel"        "-1"
+	    "LevelsBetweenUpgrades"     "1"
+	
+	    // Stats
+	    //-------------------------------------------------------------------------------------
+	    "AbilityCooldown"  "5.5 5 4.5 4 3.5 3"
+	    "AbilityManaCost"  "1"
+	    "AbilityTextureName" "mirana_arrow"
+	    "AbilityCastRange"                "2000"
+	    //"AbilityCastPoint" "0.35"
+	
+	
+	    // Special
+	    //-------------------------------------------------------------------------------------
+	    "AbilitySpecial"
+	    {
+	        "01"
+	        {
+	          "var_type" "FIELD_INTEGER"
+	          "radius" "100 100 100 100 100 100"
+	        }
+	        "02"
+	        {
+	          "var_type" "FIELD_INTEGER"
+	          "arrow_speed" "1000 1100 1200 1300 1400 1500"
+	        }
+	    }
+	
+	    "precache"
+	    {
+	        "model"  "models/heroes/mirana/mirana_javelin.vmdl"
+	    }
+	
+	    // Data Driven
+	    //-------------------------------------------------------------------------------------
+	    "OnSpellStart"
+	    {
+	        "RunScript"
+	        {
+	          "ScriptFile"  "heroes/mirana/arrow.lua"
+	          "Function"    "create_arrow"
+	          "Target"      "POINT"
+	        }
+	
+	    }
+	
+	    "Modifiers"
+	    {
+	    }    
+	  }
+	"mirana_shoot"
+	  {
+	    // General
+	    //-------------------------------------------------------------------------------------
+	    "BaseClass" "ability_datadriven"
+	    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+	    "MaxLevel"              "6"
+	    "RequiredLevel"        "-1"
+	    "LevelsBetweenUpgrades"     "1"
+	    "AOERadius"           "%radius"
+	
+	    // Stats
+	    //-------------------------------------------------------------------------------------
+	    //"AbilityCastPoint" "0.2"
+	    "AbilityCooldown"  "1.1 1 0.8 0.6 0.4 0.3"
+	    "AbilityManaCost"  "1"
+	    "AbilityTextureName" "mirana_starfall"
+	
+	
+	    // Special
+	    //-------------------------------------------------------------------------------------
+	    "AbilitySpecial"
+	    {
+	        "01"
+	        {
+	          "var_type" "FIELD_INTEGER"
+	          "radius" "340 360 380 400 420 440"
+	        }
+	        "02"
+	        {
+	          "var_type" "FIELD_FLOAT"
+	          "max_range_reduction" "900 850 800 750 700 650"
+	        }
+	        "03"
+	        {
+	          "var_type" "FIELD_FLOAT"
+	          "duration" "0.1"
+	        }
+	    }
+	
+	    "precache"
+	    {
+	    }
+	
+	    // Data Driven
+	    //-------------------------------------------------------------------------------------
+	    "OnSpellStart"
+	    {
+	      "RunScript"
+	      {
+	        "ScriptFile"  "heroes/shoot.lua"
+	        "Function"    "shoot"
+	      }
+	      "ApplyModifier"
+	      {
+	          "ModifierName"    "modifier_animation"
+	          "Target"         "CASTER"
+	          "Duration"        "0.5"
+	      }
+	    }
+	
+	    "Modifiers"
+	    {
+	        "modifier_animation"
+	        {
+	            "Passive"            "0"
+	            "IsHidden"            "1"
+	            "OverrideAnimation"     "ACT_DOTA_ATTACK"
+	        
+	        }
+	    }    
+	  }
 	"pudge_rot_keeper"
 	  {
 	    // General
@@ -482,6 +611,7 @@
 	
 	    "precache"
 	    {
+	        "particle" "particles/units/heroes/hero_pudge/pudge_rot.vpcf"
 	    }
 	
 	    // Data Driven
@@ -495,9 +625,43 @@
 	      }
 	
 	    }
+	    "OnAbilityPhaseStart"
+	    {
+	      "ApplyModifier"
+	      {
+	          "ModifierName"    "modifier_rot"
+	          "Target"         "CASTER"
+	          "Duration"        "0.5"
+	      }
+	    }
 	
 	    "Modifiers"
 	    {
+	
+	        "modifier_rot"
+	        {
+	            "IsBuff" "0"
+	            "IsHidden" "1"
+	            "Passive" "0"
+	
+	            // Modifier Events
+	            //-----------------------------------------------------------------------------
+	            "OnCreated"
+	            {
+	                "AttachEffect"
+	                {
+	                    "Target" "CASTER"
+	                    "EffectName" "particles/units/heroes/hero_pudge/pudge_rot.vpcf"
+	                    "EffectAttachType" "follow_origin"
+	
+	                    "ControlPoints"
+	                    {
+	                        "00" "0 0 0"
+	                        "01" "%radius 0 0"
+	                    }
+	                }
+	            }
+	        }
 	    }    
 	  }
 	"pudge_shoot"
@@ -536,7 +700,7 @@
 	        "03"
 	        {
 	          "var_type" "FIELD_FLOAT"
-	          "duration" "0.15"
+	          "duration" "0.1"
 	        }
 	    }
 	

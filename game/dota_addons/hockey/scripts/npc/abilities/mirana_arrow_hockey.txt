@@ -1,0 +1,57 @@
+"mirana_arrow_hockey"
+  {
+    // General
+    //-------------------------------------------------------------------------------------
+    "BaseClass" "ability_datadriven"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "MaxLevel"              "6"
+    "RequiredLevel"        "-1"
+    "LevelsBetweenUpgrades"     "1"
+
+    // Stats
+    //-------------------------------------------------------------------------------------
+    "AbilityCooldown"  "5.5 5 4.5 4 3.5 3"
+    "AbilityManaCost"  "1"
+    "AbilityTextureName" "mirana_arrow"
+    "AbilityCastRange"                "2000"
+    //"AbilityCastPoint" "0.35"
+
+
+    // Special
+    //-------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+        "01"
+        {
+          "var_type" "FIELD_INTEGER"
+          "radius" "100 100 100 100 100 100"
+        }
+        "02"
+        {
+          "var_type" "FIELD_INTEGER"
+          "arrow_speed" "1000 1100 1200 1300 1400 1500"
+        }
+    }
+
+    "precache"
+    {
+        "model"  "models/heroes/mirana/mirana_javelin.vmdl"
+    }
+
+    // Data Driven
+    //-------------------------------------------------------------------------------------
+    "OnSpellStart"
+    {
+        "RunScript"
+        {
+          "ScriptFile"  "heroes/mirana/arrow.lua"
+          "Function"    "create_arrow"
+          "Target"      "POINT"
+        }
+
+    }
+
+    "Modifiers"
+    {
+    }    
+  }

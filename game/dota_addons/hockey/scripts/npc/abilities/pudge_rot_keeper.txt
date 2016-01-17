@@ -34,6 +34,7 @@
 
     "precache"
     {
+        "particle" "particles/units/heroes/hero_pudge/pudge_rot.vpcf"
     }
 
     // Data Driven
@@ -47,8 +48,42 @@
       }
 
     }
+    "OnAbilityPhaseStart"
+    {
+      "ApplyModifier"
+      {
+          "ModifierName"    "modifier_rot"
+          "Target"         "CASTER"
+          "Duration"        "0.5"
+      }
+    }
 
     "Modifiers"
     {
+
+        "modifier_rot"
+        {
+            "IsBuff" "0"
+            "IsHidden" "1"
+            "Passive" "0"
+
+            // Modifier Events
+            //-----------------------------------------------------------------------------
+            "OnCreated"
+            {
+                "AttachEffect"
+                {
+                    "Target" "CASTER"
+                    "EffectName" "particles/units/heroes/hero_pudge/pudge_rot.vpcf"
+                    "EffectAttachType" "follow_origin"
+
+                    "ControlPoints"
+                    {
+                        "00" "0 0 0"
+                        "01" "%radius 0 0"
+                    }
+                }
+            }
+        }
     }    
   }

@@ -79,9 +79,11 @@ function Hockey:OnAllPlayersLoaded()
                     Entities:FindByName(nil, "top_left"):GetAbsOrigin(),
                     Entities:FindByName(nil, "bot_left"):GetAbsOrigin(),
                     Entities:FindByName(nil, "bot_right"):GetAbsOrigin()}
-
- Hockey.goals =     {Entities:FindByName(nil, "goal_right"):GetAbsOrigin(),
-                      Entities:FindByName(nil, "goal_left"):GetAbsOrigin()}
+  Hockey.goals =    {}
+  Hockey.goals.bot =     {{Entities:FindByName(nil, "goal_bot_right_mid"):GetAbsOrigin(),Entities:FindByName(nil, "goal_bot_right_rad"):GetAbsOrigin()},
+                          {Entities:FindByName(nil, "goal_bot_left_mid"):GetAbsOrigin(),Entities:FindByName(nil, "goal_bot_left_rad"):GetAbsOrigin()}}
+  Hockey.goals.top =     {{Entities:FindByName(nil, "goal_top_right_mid"):GetAbsOrigin(),Entities:FindByName(nil, "goal_top_right_rad"):GetAbsOrigin()},
+                          {Entities:FindByName(nil, "goal_top_left_mid"):GetAbsOrigin(),Entities:FindByName(nil, "goal_top_left_rad"):GetAbsOrigin()}}
 end
 
 --[[

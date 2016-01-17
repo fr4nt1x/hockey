@@ -4,13 +4,13 @@
     //-------------------------------------------------------------------------------------
     "BaseClass" "ability_datadriven"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-    "MaxLevel"              "5"
+    "MaxLevel"              "6"
     "RequiredLevel"        "-1"
     "LevelsBetweenUpgrades"     "1"
 
     // Stats
     //-------------------------------------------------------------------------------------
-    "AbilityCooldown"  "6 5 4 3 2"
+    "AbilityCooldown"  "7 6 5 4 3 2"
     "AbilityManaCost"  "1"
     "AbilityTextureName" "antimage_blink"
     "AbilityCastRange"                "%radius"
@@ -23,7 +23,7 @@
         "01"
         {
           "var_type" "FIELD_INTEGER"
-          "radius" "300 350 400 450 500"
+          "radius" "300 350 400 450 500 550"
         }
     }
 
